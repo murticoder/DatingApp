@@ -1,3 +1,4 @@
+import { ErrorInterceptorProvider } from './../_services/error.interceptor';
 import { AuthService } from './../_services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { modelGroupProvider } from '@angular/forms/src/directives/ng_model_group';
@@ -20,7 +21,7 @@ export class NavComponent implements OnInit {
     this.authService.login(this.model).subscribe(next => {
       console.log('logged in successfully');
     }, error => {
-      console.log('Failed to login');
+      console.log(error);
     });
   }
 
