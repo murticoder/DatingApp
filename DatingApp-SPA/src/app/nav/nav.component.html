@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-primary">
 
   <div class="container">
-    <a class="navbar-brand" [routerLink]="['/home']"  >Dating App</a>
+    <a class="navbar-brand" [routerLink]="['/home']">Dating App</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
       aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -10,13 +10,13 @@
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <ul *ngIf="loggedIn()" class="navbar-nav mr-auto">
         <li class="nav-item" routerLinkActive="active">
-          <a class="nav-link" [routerLink]="['/members']"  >Matches</a>
+          <a class="nav-link" [routerLink]="['/members']">Matches</a>
         </li>
         <li class="nav-item" routerLinkActive="active">
-          <a class="nav-link" [routerLink]="['/lists']"  >Lists</a>
+          <a class="nav-link" [routerLink]="['/lists']">Lists</a>
         </li>
         <li class="nav-item" routerLinkActive="active">
-          <a class="nav-link" [routerLink]="['/messages']"  >Messages</a>
+          <a class="nav-link" [routerLink]="['/messages']">Messages</a>
         </li>
       </ul>
 
@@ -25,30 +25,35 @@
 
 
 
-  <!--if loggedIn return false this div will be remove-->
-  <div *ngIf="loggedIn()" class="dropdown show" dropdown>
-    <a class="dropdown-toggle text-light" dropdownToggle (click)="false">
-      Welcome {{authService.decodedToken?.unique_name | titlecase}}
-    </a>
+    <!--if loggedIn return false this div will be remove-->
+    <div *ngIf="loggedIn()" class="dropdown show" dropdown>
 
-    <div class="dropdown-menu mt-3" *dropdownMenu>
-      <a class="dropdown-item" [routerLink]="['/member/edit']" ><i class="fa fa-user"></i> Edit Profile</a>
-      <div class="dropdown-divider"></div>
-      <a class="dropdown-item" (click)="logout()"><i class="fa fa-sign-out"></i> Logout</a>
+      <span class="mr-2">
+        <img src="{{photoUrl}}" alt="">
+      </span>
+
+      <a class="dropdown-toggle text-light" dropdownToggle (click)="false">
+        Welcome {{authService.decodedToken?.unique_name | titlecase}}
+      </a>
+
+      <div class="dropdown-menu mt-3" *dropdownMenu>
+        <a class="dropdown-item" [routerLink]="['/member/edit']"><i class="fa fa-user"></i> Edit Profile</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" (click)="logout()"><i class="fa fa-sign-out"></i> Logout</a>
+      </div>
     </div>
+
+
+
+    <form *ngIf="!loggedIn()" #loginForm="ngForm" class="form-inline mt-2 mt-md-0" (ngSubmit)="login()">
+      <input class="form-control mr-sm-2" type="text" name="username" placeholder="Username" required
+        [(ngModel)]="model.username" #username="ngModel">
+      <input class="form-control mr-sm-2" type="password" name="password" placeholder="Password" required
+        [(ngModel)]="model.password" #password="ngModel">
+
+      <button [disabled]="!loginForm.valid" class="btn btn-success my-2 my-sm-0" type="submit">Login</button>
+    </form>
   </div>
-
-
-
-  <form *ngIf="!loggedIn()" #loginForm="ngForm" class="form-inline mt-2 mt-md-0" (ngSubmit)="login()">
-    <input class="form-control mr-sm-2" type="text" name="username" placeholder="Username" required
-      [(ngModel)]="model.username" #username="ngModel">
-    <input class="form-control mr-sm-2" type="password" name="password" placeholder="Password" required
-      [(ngModel)]="model.password" #password="ngModel">
-
-    <button [disabled]="!loginForm.valid" class="btn btn-success my-2 my-sm-0" type="submit">Login</button>
-  </form>
-</div>
 
 </nav>
 

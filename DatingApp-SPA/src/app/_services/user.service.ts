@@ -32,4 +32,12 @@ constructor(private http: HttpClient) { }
   updateUser(id: number, user: User) {
     return this.http.put(this.baseUrl + 'user/' + id , user);
   }
+
+  setMainPhoto(userId: number, id: number) {
+    return this.http.post(this.baseUrl + 'user/' + userId + '/photos/' + id + '/setMain' , {});
+  }
+
+  deletePhoto(userId: number , id: number) {
+    return this.http.delete(this.baseUrl + 'user/' + userId + '/photos/' + id);
+  }
 }
